@@ -1,13 +1,12 @@
 ---
 title: "About Me"
-about: Uma Kasichainula
+about:
   id: me
   template: broadside
   image: img/profile.png
 ---
 
-:::{#me}
-
+::: {#me}
 ## Goals
 
 Seeking a career in Data Analytics in any field, with a particular preference towards Economic Development, Finance, or Marketing
@@ -29,9 +28,10 @@ Project Intern at Greenfield Cooperative Bank
 Dishwasher at UMass Catering
 
 Lighting and Sound Technician for Pleasant Valley High School
+:::
 
+::: {#resumelink}
 <a href="files/UMK2024.pdf" target="_blank">Open Resume</a>
-
 :::
 
 Thanks for checking out my web site!
