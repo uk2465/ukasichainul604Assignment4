@@ -2,8 +2,9 @@
 title: "Projects"
 ---
 
-## Project 1
+## 602 Final Project
+<a href="files/Racial Biases in Healthcare and Education_.pdf" target="_blank">Link to 602 Project</a>
 
-## Project 2
+## 603 Final Project
 
-## Project 3
+<a href="files/603FinalProject" target="_blank">Open Syllabus</a>
