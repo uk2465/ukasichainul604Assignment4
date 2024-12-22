@@ -1,6 +1,6 @@
 ---
 title: "About Me"
-about:
+about: Uma Kasichainula
   id: me
   template: broadside
   image: img/profile.png
@@ -10,9 +10,25 @@ about:
 
 ## Goals
 
+Seeking a career in Data Analytics in any field, with a particular preference towards Economic Development, Finance, or Marketing
+
 ## Education
 
+BA in Economics, Minor in Theater from University of Massachusetts Amherst
+
+Currently pursuing an MS in Data Analytics and Computational Social Science from University of Massachusetts Amherst
+
 ## Experience
+
+Current Position: Student Librarian at UMass Science and Engineering Library
+
+Past Experience:
+
+Project Intern at Greenfield Cooperative Bank
+
+Dishwasher at UMass Catering
+
+Lighting and Sound Technician for Pleasant Valley High School
 
 :::
 
