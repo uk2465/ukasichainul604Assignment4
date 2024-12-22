@@ -3,24 +3,22 @@ project:
   output-dir: docs
   
 website:
-  title: "MY WEB SITE"
+  title: "Uma Kasichainula"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - projects.qmd
     tools:
-      - icon: twitter
-        href: https://twitter.com/
       - icon: github
-        href: https://github.com/YOURUSERNAME/YOURREPO
+        href: https://github.com/uk2465/umamihira
   page-footer:
     right: "Built with [Quarto](https://quarto.org/)"
     left: "&copy; Copyright 2023, YOUR NAME"
 
 format:
   html:
-    theme: cerulean
+    theme: broadside
     toc: true
 
 editor: source
