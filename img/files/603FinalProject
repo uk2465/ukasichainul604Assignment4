@@ -1,0 +1,101 @@
+---
+title: "Redlining: How it Affects Black and Hispanic Populations"
+author: "Uma Kasichainula"
+format: pdf
+editor: visual
+---
+
+## Research Question
+
+How does redlining affect population distribution amongst minority populations, particularly amongst Black and Hispanic/Latino populations?
+
+## Background
+
+Redlining has had a long and racist history in the United States. The link between the denial of financial services to ethnically diverse areas on the basis of racism and adherence to the belief of racial stereotypes. Redlining can also be attributed to the reason why there is a racialized poverty issue in America. With the inability to build generational wealth due to the difficulties many Black and Hispanic/Latino populations face in attaining mortgages and building home equity. Redlining also pigeonholes many populations into staying in the same neighborhood regardless of their credit and ability and potential to purchase homes elsewhere, especially compared to their white counterparts. As a result, there is clear residential segregation across the country. Furthermore, the practice of gentrification drives these populations out of what little they have. While the practice has historically targeted Black populations, particularly African Americans, there is also a link between redlining as a practice and the spread of Hispanic/Latino populations throughout the United States.
+
+## Hypothesis
+
+The Black population in an area has a positive correlation with the Hispanic/Latino population in an area with a low grade given by the Home Owners Loan Corporation.
+
+## Descriptive Statistics
+
+```{r}
+RedliningRawData <- read.csv("/Users/uma/Documents/DACSS_601/data/redlining.csv")
+
+redlining <- subset(RedliningRawData, holc_grade == "D")
+```
+
+```{r}
+head(redlining)
+summary(redlining)
+```
+
+This data, collected in 2020, was obtained from FiveThirtyEight and tracks the population of minorities across various areas, as well as location quotients that indicate whether the minority population of an area is concentrated compared to the population of the greater surrounding area. However, the data only includes areas that have subareas with ratings ranging from A to D, as rated by the Home Owners Loan Corporation. This includes about 138 areas from a Mapping Ineqality project. The data has been subset to only include the areas with D ratings, in order to determine whether Black and Hispanic populations are grouped together in the context of redlining.
+
+```{r}
+library(dplyr)
+glimpse(redlining)
+```
+
+## Model Fitting / Hypothesis Testing
+
+```{r}
+library(dagitty)
+dagitty('
+dag {
+"Black Population" -> "Hispanic Population"
+"HOLC Grade" -> "Black Population"
+"HOLC Grade" -> "Hispanic Population"
+}
+') |> graphLayout() |> plot()
+```
+
+To state the effects of what this DAG illustrates, the low HOLC grade of an area directly correlates with the amount of Black and Hispanic people in an area, and increases in the Black population of an area can also be correlated with increases in the Hispanic population in an area.
+
+This code will extract Black and Hispanic Demographic Data by Population from the already subset redlining data
+
+```{r}
+black_population <- redlining$black_pop
+hispanic_population <- redlining$hisp_pop
+```
+
+The code below will model a regression and summarize the results
+
+```{r}
+model <- lm(hispanic_population ~ black_population, data = redlining)
+
+summary(model)
+```
+
+```{r}
+# Plot the data and the regression line
+library(ggplot2)
+ggplot(redlining, aes(x = black_population, y = hispanic_population)) +
+  geom_point(color = "blue") +
+  geom_smooth(method = "lm", color = "red") +
+  labs(title = "Black vs. Hispanic Population (HOLC Grade D)",
+       x = "Black Population",
+       y = "Hispanic Population") 
+```
+
+According to this data, not only is there a positive correlation between Black and Hispanic populations in areas given low ratings by the HOLC, but an increase in the Hispanic population of the area can be correlated with an increase in the Black population in an area to the point that for each addition Black person in the population of an area rated as D by the HOLC, the Hispanic population increases by 1.256. It is possible to ensure this by confirming the confidence interval.
+
+```{r}
+confint(model)
+```
+
+As seen above, 1.256 sits comfortably in the confidence interval of (1.12, 1.39).
+
+## Diagnostics and Model Evaluation
+
+```{r}
+plot(model)
+```
+
+Here are four plots with the data from the regression.
+
+Additionally, it is important to consider that the R-squared of the data is 0.7022, adjusted to 0.7. Essentially, it means that 70.22% of the variance in the Hispanic population data can be attributed to the Black population data. This indicates an extremely high positive correlation and proved what was hypothesized about the correlation between Black and Hispanic populations in areas rated D by the Home Owners Loan Corporation
+
+## Conclusions
+
+The hypothesis expressed above was not only proven by the results of this regression, it highlights a glaring issue with inequity in America. The redlining behaviors that continue to plague Black and Hispanic populations continue to wreak havoc on their financial security, access to resources, and standard of living. If the United States hopes to address the polarizing divide that currently exists between the inhabitants of those it governs, a good place to start would be to ensure the rights it preaches are entitled to all are, in fact, accessible to all.
